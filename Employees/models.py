@@ -68,7 +68,7 @@ class Programmer(Employee):
         return f'Programmer: {self.name}'
 
     def __add__(self, other):
-        return set(self.tech_stack + other.tech_stack)
+        return Programmer('Lola', 'lola@gmail.com', 100,  tuple(set(self.tech_stack + other.tech_stack)))
 
 
 class Candidate:
