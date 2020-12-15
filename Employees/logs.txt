@@ -1,0 +1,25 @@
+2020-12-15 16:05:23.968773 | ValueError 
+ Traceback (most recent call last):
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/app.py", line 8, in <module>
+    recruiter_aleks = models.Recruiter('Aleks', 'aleks@gmail.com', 50)
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/models.py", line 10, in __init__
+    self.valid_email()
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/models.py", line 21, in valid_email
+    raise ValueError
+ValueError
+2020-12-15 16:06:12.619426 | UnableToWorkException 
+ Traceback (most recent call last):
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/app.py", line 16, in <module>
+    candidate_artem.work()
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/models.py", line 100, in work
+    raise UnableToWorkException('“I’m not hired yet, lol.”')
+models.UnableToWorkException: “I’m not hired yet, lol.”
+2020-12-15 16:06:32.940129 | ValueError 
+ Traceback (most recent call last):
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/app.py", line 8, in <module>
+    recruiter_aleks = models.Recruiter('Aleks', 'aleks@gmail.com', 50)
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/models.py", line 10, in __init__
+    self.valid_email()
+  File "/home/ddmitroidd/python/Python/raise_exeption/first_project/Employees/models.py", line 21, in valid_email
+    raise ValueError
+ValueError

@@ -7,6 +7,18 @@ class Employee:
         self.name = name
         self.email = email
         self.salary_per_day = salary_per_day
+        self.valid_email()
+        self.save_email()
+
+    def save_email(self):
+        with open('save_email.txt', 'a') as save:
+            save.seek(0)
+            save.write(self.email + '\n')
+
+    def valid_email(self):
+        with open('save_email.txt') as read_email:
+            if self.email in read_email.read().split():
+                raise ValueError
 
     def work(self):
         return "I come to the office."
@@ -71,6 +83,10 @@ class Programmer(Employee):
         return Programmer('Lola', 'lola@gmail.com', 100,  tuple(set(self.tech_stack + other.tech_stack)))
 
 
+class UnableToWorkException(Exception):
+    pass
+
+
 class Candidate:
 
     def __init__(self, full_name, email, main_skill, main_skill_grade, *technologies):
@@ -79,6 +95,9 @@ class Candidate:
         self.technologies = technologies
         self.main_skill = main_skill
         self.main_skill_grade = main_skill_grade
+
+    def work(self):
+        raise UnableToWorkException('“I’m not hired yet, lol.”')
 
     def __str__(self):
         return f'Candidate: {self.full_name}'
