@@ -1,5 +1,7 @@
 from datetime import date, timedelta
 
+from csv import DictReader
+
 
 class Employee:
 
@@ -7,18 +9,18 @@ class Employee:
         self.name = name
         self.email = email
         self.salary_per_day = salary_per_day
-        self.valid_email()
-        self.save_email()
+        # self.valid_email()
+        # self.save_email()
 
-    def save_email(self):
-        with open('save_email.txt', 'a') as save:
-            save.seek(0)
-            save.write(self.email + '\n')
-
-    def valid_email(self):
-        with open('save_email.txt') as read_email:
-            if self.email in read_email.read().split():
-                raise ValueError
+    # def save_email(self):
+    #     with open('save_email.txt', 'a') as save:
+    #         save.seek(0)
+    #         save.write(self.email + '\n')
+    #
+    # def valid_email(self):
+    #     with open('save_email.txt') as read_email:
+    #         if self.email in read_email.read().split():
+    #             raise ValueError
 
     def work(self):
         return "I come to the office."
@@ -41,7 +43,21 @@ class Employee:
     def salary(self, amount_of_days):
         return self.salary_per_day * amount_of_days
 
-    def check_salary(self):
+
+    def check_work_days(self):
+        now = date.today()
+        month_start = date(now.year, now.month, 1)
+        weekend = [5, 6]
+        diff = (now - month_start).days + 1
+        day_count = 0
+
+        for day in range(diff):
+            if (month_start + timedelta(day)).weekday() not in weekend:
+                day_count += 1
+        return day_count
+
+    @staticmethod
+    def check_salary(salary):
         now = date.today()
         month_start = date(now.year, now.month, 1)
         weekend = [5, 6]
@@ -52,7 +68,11 @@ class Employee:
             if (month_start + timedelta(day)).weekday() not in weekend:
                 day_count += 1
 
-        return day_count * self.salary_per_day
+        return day_count * salary
+
+    @property
+    def ret_employee(self):
+        return f'Position: {self.__class__.__name__} \n Name: {self.name} Days: {self.check_work_days()}'
 
 
 class Recruiter(Employee):
@@ -101,6 +121,21 @@ class Candidate:
 
     def __str__(self):
         return f'Candidate: {self.full_name}'
+
+    @classmethod
+    def create_candidate(cls, data):
+        tech = ''
+        with open(data) as db:
+            reader = DictReader(db)
+            for cond in reader:
+                inform = []
+                for inf in cond:
+                    if inf == 'Technologies':
+                        tech = cond[inf].split('|')
+                    else:
+                        inform.append(cond[inf])
+                inform += tech
+                yield cls(*inform)
 
 
 class Vacancy:

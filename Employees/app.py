@@ -13,7 +13,13 @@ if __name__ == '__main__':
         candidate_artem = models.Candidate('Artem', 'artem@gmail.com', 'java', 'middle', 'java', 'js', 'c++')
         vacancy_python_dev = models.Vacancy('python developer', 'python', 'senior')
         vacancy_java_dev = models.Vacancy('java developer', 'java', 'junior')
-        candidate_artem.work()
+        # print(recruiter_aleks.ret_employee)
+        # print(models.Employee.check_salary(50))
+        data = 'candidates.csv'
+        cand1, cand2, cand3 = models.Candidate.create_candidate(data)
+        print(cand1.work())
+        print(candidate_dmytro.work())
+
     except Exception as err:
         tb = traceback.format_exc()
         dt = str(datetime.now())
@@ -21,3 +27,6 @@ if __name__ == '__main__':
         with open('logs.txt', 'a') as logs:
             logs.write(log)
 
+
+    # finally:
+    #     print(models.Employee.check_salary(50))
